@@ -17,4 +17,4 @@ ncverilog tb.v memTest.v sram_dp_4096x64.v +access+r +notimingchecks
 
 ## Simulation result
 
-![Address count method.](./image/sample.png "This is a sample image.")
+![image](./image/sample.png "This is a sample image.")
