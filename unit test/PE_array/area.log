@@ -1,0 +1,30 @@
+ 
+****************************************
+Report : area
+Design : PE_array
+Version: Q-2019.12
+Date   : Wed Jun 14 11:55:39 2023
+****************************************
+
+Library(s) Used:
+
+    slow (File: /usr/cad/designkit/CBDK_IC_Contest_v2.1/SynopsysDC/db/slow.db)
+
+Number of ports:                        14632
+Number of nets:                         32940
+Number of cells:                        15287
+Number of combinational cells:          11821
+Number of sequential cells:              3124
+Number of macros/black boxes:               0
+Number of buf/inv:                       1269
+Number of references:                      87
+
+Combinational area:             216033.194035
+Buf/Inv area:                     6533.292456
+Noncombinational area:           97790.606865
+Macro/Black Box area:                0.000000
+Net Interconnect area:         1902329.849304
+
+Total cell area:                313823.800900
+Total area:                    2216153.650204
+1
