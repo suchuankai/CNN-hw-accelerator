@@ -1,7 +1,7 @@
 # PE array test
 
 ## Description
-This folder aims to test data PE array part in hardware accelerator..
+This folder aims to verify PE array part function in hardware accelerator.
 
 ## Notes
 
