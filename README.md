@@ -1,4 +1,4 @@
-![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/7b31bc31-52a7-481e-a93e-5074eeafbf85)![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/634e33a3-d0a2-415a-9650-62508c584942)![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/b0294c21-8ab4-4d3e-bfde-31a6cb59498b)![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/0dcfc4b0-2032-44a9-a938-355e89c54668)# AI-accelerator
+# AI-accelerator
 This is a CNN Accelerator design for the NCKU AOC (Team 9) final project.  
   
 In this project, we train a model for **Fashion MNIST**, then quantize it with PyTorch to achieve hardware acceleration using **8-bit weights**.  
