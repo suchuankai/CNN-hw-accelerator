@@ -1,4 +1,4 @@
-# AI-accelerator
+![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/7b31bc31-52a7-481e-a93e-5074eeafbf85)![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/634e33a3-d0a2-415a-9650-62508c584942)![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/b0294c21-8ab4-4d3e-bfde-31a6cb59498b)![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/0dcfc4b0-2032-44a9-a938-355e89c54668)# AI-accelerator
 This is a CNN Accelerator design for the NCKU AOC (Team 9) final project.  
   
 In this project, we train a model for **Fashion MNIST**, then quantize it with PyTorch to achieve hardware acceleration using **8-bit weights**.  
@@ -8,6 +8,13 @@ In hardware design, we also consider the differences in scaling factors between 
 - Use a CNN model similar to LeNet-5, but replace the convolutional part with 3x3 convolutions.
 - Use post-training quantization to quantize the model.
 - Hardware implement first layer with a 3x3 convolution, ReLU activation, and max-pooling, using 8-bit computation.
+
+|                          | Quantize per tensor  | conv1    | pool    | conv2  | pool_1  | fc1     | fc2     | fc3    |
+|  ----                    | ----                 | -----   | -----   | -----   | -----   | -----   | -----   | -----  |
+| Scaling factor (weight)  |                      |0.01744  |         |0.00857  |         |0.00454  |0.00531  |0.00615 |
+| Zeropoint (weight)       |                      |0        |         |0        |         |0        |0        |0       |
+| Scaling factor (IA)      | 0.00392              |0.0087   |0.0087   |0.02115  ||0.02115 |0.03913  |0.05797  |0.22862 |
+| Zeropoint(IA)            |    0                 |0        |0        |0        |0        |0        |0        |175     |
 
 ## Hardware design Overview
 ![top drawio](https://github.com/suchuankai/CNN-accelerator/assets/69788052/51b1f17f-5ad2-4f5c-94c1-2fdd4bb84c82)  
