@@ -14,7 +14,9 @@ In hardware design, we also consider the differences in scaling factors between 
 | Scaling factor (weight)  |                      |0.01744  |         |0.00857  |         |0.00454  |0.00531  |0.00615 |
 | Zeropoint (weight)       |                      |0        |         |0        |         |0        |0        |0       |
 | Scaling factor (IA)      | 0.00392              |0.0087   |0.0087   |0.02115  ||0.02115 |0.03913  |0.05797  |0.22862 |
-| Zeropoint(IA)            |    0                 |0        |0        |0        |0        |0        |0        |175     |
+| Zeropoint(IA)            |    0                 |0        |0        |0        |0        |0        |0        |175     |  
+  
+![Equation](https://latex.codecogs.com/svg.image?Bias&space;=&space;\frac{bias}{{input&space;scale&space;\cdot&space;weight&space;scale}}&space;=&space;\frac{0.031352922}{{0.00392&space;\cdot&space;0.01744}}&space;\approx&space;459&space;)  
 
 ## Hardware design Overview
 ![top drawio](https://github.com/suchuankai/CNN-accelerator/assets/69788052/51b1f17f-5ad2-4f5c-94c1-2fdd4bb84c82)  
