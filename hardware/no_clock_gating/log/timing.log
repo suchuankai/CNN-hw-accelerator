@@ -1,0 +1,76 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : Top
+Version: Q-2019.12
+Date   : Mon Jun 19 23:12:57 2023
+****************************************
+
+Operating Conditions: slow   Library: slow
+Wire Load Model Mode: top
+
+  Startpoint: ifmap[57] (input port clocked by clk)
+  Endpoint: FIFO_0/buffer_reg[68]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  Top                tsmc13_wl10           slow
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (fall edge)                   10.00      10.00
+  clock network delay (ideal)              0.50      10.50
+  input external delay                     0.00      10.50 f
+  ifmap[57] (in)                           0.02      10.52 f
+  FIFO_0/ifmapIn[57] (FIFO)                0.00      10.52 f
+  FIFO_0/U359/Y (INVX20)                   0.04      10.56 r
+  FIFO_0/U358/Y (CLKBUFX4)                 0.47      11.02 r
+  FIFO_0/U50/Y (OAI222X1)                  0.31      11.33 f
+  FIFO_0/U4926/Y (AOI221XL)                0.56      11.89 r
+  FIFO_0/U7/Y (OAI22X1)                    0.28      12.18 f
+  FIFO_0/U4925/Y (AOI222XL)                0.67      12.85 r
+  FIFO_0/U4924/Y (OAI22XL)                 0.32      13.17 f
+  FIFO_0/U4923/Y (AOI221XL)                0.54      13.71 r
+  FIFO_0/U412/Y (OR2X2)                    0.23      13.94 r
+  FIFO_0/U216/Y (NAND3X1)                  0.15      14.10 f
+  FIFO_0/U215/Y (AOI222XL)                 0.64      14.74 r
+  FIFO_0/U4922/Y (OAI22XL)                 0.34      15.07 f
+  FIFO_0/U4975/Y (AOI211X1)                0.36      15.43 r
+  FIFO_0/U4974/Y (OAI222XL)                0.33      15.77 f
+  FIFO_0/U4973/Y (AO22X1)                  0.49      16.26 f
+  FIFO_0/U249/Y (AOI211X1)                 0.30      16.56 r
+  FIFO_0/U248/Y (OR2X1)                    0.25      16.81 r
+  FIFO_0/U125/Y (NAND3X1)                  0.21      17.02 f
+  FIFO_0/U502/Y (AOI222X2)                 0.26      17.28 r
+  FIFO_0/U4832/Y (NAND3X1)                 0.24      17.51 f
+  FIFO_0/U81/Y (AOI222X2)                  0.34      17.86 r
+  FIFO_0/U80/Y (OAI222X1)                  0.28      18.14 f
+  FIFO_0/U4234/Y (NOR4X1)                  0.37      18.51 r
+  FIFO_0/U4917/Y (OAI22XL)                 0.26      18.77 f
+  FIFO_0/U4915/Y (AOI211X1)                0.35      19.12 r
+  FIFO_0/U4914/Y (OAI22XL)                 0.25      19.37 f
+  FIFO_0/U4964/Y (OR4X1)                   0.48      19.85 f
+  FIFO_0/U4963/Y (OAI2BB2XL)               0.30      20.16 f
+  FIFO_0/buffer_reg[68]/D (DFFRX1)         0.00      20.16 f
+  data arrival time                                  20.16
+
+  clock clk (rise edge)                   20.00      20.00
+  clock network delay (ideal)              0.50      20.50
+  clock uncertainty                       -0.10      20.40
+  FIFO_0/buffer_reg[68]/CK (DFFRX1)        0.00      20.40 r
+  library setup time                      -0.24      20.16
+  data required time                                 20.16
+  -----------------------------------------------------------
+  data required time                                 20.16
+  data arrival time                                 -20.16
+  -----------------------------------------------------------
+  slack (MET)                                         0.00
+
+
+1
