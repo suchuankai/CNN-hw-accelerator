@@ -12,11 +12,13 @@ In hardware design, we also consider the differences in scaling factors between 
 - Using FashionMNIST dataset with PyTorch, the images in this dataset are 28x28 grayscale images. And we have padded it to a size of 30x30 using our program. It consists of 60,000 training samples and 10,000 
   test samples.  
   The quantized model size is approximately one-fourth of the original size, while the accuracy only slightly decreases. Following table presents the actual results:  
+  
   |                  | Before    | After     | 
   |  ----            | ----      | -----     |
   | Model size (MB)  |0.327587   | 0.088283  |
   | Accuracy         |9048/10000 | 9024/10000|
-- During the quantization in software, each layer has its own scaling factor and zero point. But for hardware computation, after each layer a dequantization process is performed to match the input of the next layer. In this project, we have only implemented the first layer, so we need to dequantize the computed results to match the input of the second layer. The following are the parameters table for calculating bias and shift:  
+- During the quantization in software, each layer has its own scaling factor and zero point. But for hardware computation, after each layer a dequantization process is performed to match the input of the next layer. In this project, we have only implemented the first layer, so we need to dequantize the computed results to match the input of the second layer. The following are the parameters table for calculating bias and shift:
+    
   |                          | Quantize per tensor  | conv1    | pool    | conv2  | pool_1  | fc1     | fc2     | fc3    |
   |  ----                    | ----                 | -----   | -----   | -----   | -----   | -----   | -----   | -----  |
   | Scaling factor (weight)  |                      |0.01744  |         |0.00857  |         |0.00454  |0.00531  |0.00615 |
