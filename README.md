@@ -1,5 +1,5 @@
-# AI-accelerator
-This is a CNN Accelerator design for the NCKU AOC (Team 9) final project.  
+# CNN-accelerator
+This is a CNN accelerator design for NCKU AOC (Team 9) final project.  
   
 In this project, we train a model for **Fashion MNIST**, then quantize it with PyTorch to achieve hardware acceleration using **8-bit weights**.  
 In hardware design, we also consider the differences in scaling factors between different layers.  
@@ -9,7 +9,8 @@ In hardware design, we also consider the differences in scaling factors between 
 - Use post-training quantization to quantize the model.
 - Hardware implement first layer with a 3x3 convolution, ReLU activation, and max-pooling, using 8-bit computation.
 ### Quantilize result:  
-- Using the FashionMNIST dataset with PyTorch, the images in this dataset are 28x28 grayscale images. It consists of 60,000 training samples and 10,000 test samples.  
+- Using FashionMNIST dataset with PyTorch, the images in this dataset are 28x28 grayscale images. And we have padded it to a size of 30x30 using our program. It consists of 60,000 training samples and 10,000 
+  test samples.  
   The quantized model size is approximately one-fourth of the original size, while the accuracy only slightly decreases. Following table presents the actual results:  
   |                  | Before    | After     | 
   |  ----            | ----      | -----     |
