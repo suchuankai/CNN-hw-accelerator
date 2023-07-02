@@ -31,5 +31,14 @@ In hardware design, we also consider the differences in scaling factors between 
 ## Hardware design Overview
 ![top drawio](https://github.com/suchuankai/CNN-accelerator/assets/69788052/51b1f17f-5ad2-4f5c-94c1-2fdd4bb84c82)  
   
-We implemented this simple CNN accelerator based on the Eeyriss. Basically, there are five parts in our design.
+We implemented this simple CNN accelerator based on the Eeyriss. Basically, there are four parts in our design.  
+### FIFO
+![mem (2) drawio](https://github.com/suchuankai/CNN-accelerator/assets/69788052/f5097358-ebe4-448c-9f06-379a00af8a4e)
+- When designing the accelerator, size of the input feature map is 30x30. Therefore, each ifmap buffer requires 30 data entries. Considering that each input is 64 bits, there can be cases where the input data spans two rows. To address this issue, we have designed a FIFO (First-In-First-Out) module to handle situations where the data cannot be aligned perfectly. The FIFO module outputs 2 control signals:
+  - canWrite : control signal is set to 1 when the index is less than or equal to 64. This indicates that there is at least one vacant space for data inside the FIFO. When "canWrite" is high, it signals to the controller that it can write a new data entry into the FIFO.
+  - canRead : The "canRead" control signal is set to 1 when the index is greater than or equal to 64. This indicates that the FIFO currently holds at least one complete set of data. When "canRead" is high, it signifies that the data can be read out.
+### PE array
+![PE (1)](https://github.com/suchuankai/CNN-accelerator/assets/69788052/66cb6883-63ec-4b84-9adc-c3888a26984a)
+
+
 
