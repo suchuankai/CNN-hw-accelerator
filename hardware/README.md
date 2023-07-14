@@ -13,11 +13,11 @@ We have implemented two versions, one with clock-gating and one without.
 ## Instruction
 Function simulation
 ```
-ncverilog tb.v tb.v Top.v +access+r
+ncverilog tb.v Top.v +access+r
 ```
 Gate-level simulation
 ```
-ncverilog tb.v tb.v Top_syn.v tsmc13_neg.v +define+SDF +access+r
+ncverilog tb.v Top_syn.v tsmc13_neg.v +define+SDF +access+r
 ```
 
 # PE design
