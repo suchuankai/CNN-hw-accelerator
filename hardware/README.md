@@ -20,6 +20,6 @@ Gate-level simulation
 ncverilog tb.v Top_syn.v tsmc13_neg.v +define+SDF +access+r
 ```
 
-# PE design
+## PE design
 ![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/3e70f773-2572-415d-958e-0f11e18f5b98)
 
