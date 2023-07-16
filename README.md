@@ -50,4 +50,13 @@ This processing includes ReLU activation and quantization. Based on the calculat
 ### Conv buffer
 <img src="https://github.com/suchuankai/CNN-accelerator/assets/69788052/f1fbd144-bd6e-4d41-8a03-e1c1f3611455" width="550" height="360" alt="Conv buffer"/>  
   
-Conv buffer receives 4 sets of 8-bit values from the psum buffer each time. In this process, we buffer the results of the first row. When we receive the values of the second row, we can immediately compare them vertically with the results of the previous row to obtain the max-pooling result.
+Conv buffer receives 4 sets of 8-bit values from the psum buffer each time. In this process, we buffer the results of the first row. When we receive the values of the second row, we can immediately compare them vertically with the results of the previous row to obtain the max-pooling result.  
+
+## Result
+- We have completed the convolution, ReLU, and max-pooling operations on a 30x30 feature map with a 3x3 filter in 236 cycles. The maximum error does not exceed 1.
+- After synthesis, the circuit can operate at a frequency of 100 MHz, achieving a peak throughput of 3.6 GMAC/s.
+- Additionally, we have analyzed the changes in power consumption after use clock gating. For more detailed information, please refer to  `./hardware`.
+
+## Reference
+[1] Eyeriss: An Energy-Efficient Reconfigurable Accelerator for Deep Convolutional Neural Networks  
+[2] Reconfigurable Hardware Architecture Design and Implementation for AI Deep Learning Accelerator  
