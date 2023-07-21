@@ -57,7 +57,7 @@ Conv buffer receives 4 sets of 8-bit values from the psum buffer each time. In t
 
 
 ## Result
-- We have completed the convolution, ReLU, and max-pooling operations on a 30x30 feature map with a 3x3 filter in 236 cycles. The maximum error does not exceed 1.
+- We have completed the convolution, ReLU, and max-pooling operations on a 30x30 feature map with a 3x3 filter in 264 cycles. The maximum error does not exceed 1.
 - After synthesis, the circuit can operate at a frequency of 100 MHz, achieving a peak throughput of 3.6 GMAC/s.
 - Additionally, we have analyzed the changes in power consumption after use clock gating. For more detailed information, please refer to  `./hardware`.
 
