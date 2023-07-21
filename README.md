@@ -52,8 +52,9 @@ This processing includes ReLU activation and quantization. Based on the calculat
   
 Conv buffer receives 4 sets of 8-bit values from the psum buffer each time. In this process, we buffer the results of the first row. When we receive the values of the second row, we can immediately compare them vertically with the results of the previous row to obtain the max-pooling result.  
 
-### schedule
-![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/4b043fdf-89c6-49cc-843c-47d62a20001f)
+### Schedule
+![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/e9b2363b-b42d-4c80-ab7b-1b1331a12e56)
+
 
 ## Result
 - We have completed the convolution, ReLU, and max-pooling operations on a 30x30 feature map with a 3x3 filter in 236 cycles. The maximum error does not exceed 1.
