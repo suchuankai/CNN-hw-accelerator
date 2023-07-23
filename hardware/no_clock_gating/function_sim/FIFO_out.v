@@ -1,6 +1,6 @@
-module FIFO_out(clk, rst, enCounter, maxpoolIn, maxpoolOut, maxpoolOutAddr, DRAMwriteEn);
+module FIFO_out(clk, rst, clear, enCounter, maxpoolIn, maxpoolOut, maxpoolOutAddr, DRAMwriteEn);
 
-input clk, rst;
+input clk, rst, clear;
 input [3:0] enCounter;    // 6 or 8 for output
 input [63:0] maxpoolIn;
 
@@ -21,21 +21,30 @@ always@(posedge clk or posedge rst)begin
 		DRAMwriteEn <= 0;
 	end
 	else begin
-		if(canOutput)begin
+		if(maxpoolOutAddr==23 || maxpoolOutAddr==48  || maxpoolOutAddr==73 ||
+		   maxpoolOutAddr==98 || maxpoolOutAddr==123 || maxpoolOutAddr==148 )begin   // Output remain 32 bit
+			index <= 7'd0;
 			maxpoolOut <= buffer[63:0];
-			index <= index - 64;
-			buffer <= buffer >> 64;
-			DRAMwriteEn <= 1;
 			if(DRAMwriteEn)
 				maxpoolOutAddr <= maxpoolOutAddr+1;
 		end
-		if(enCounter == 6)begin    // Read 64 bit data
-			buffer[index +: 64] <= maxpoolIn;
-			index <= index + 64;
-		end 
-		if(enCounter == 8)begin    // Read 48 bit data
-			buffer[index +: 48] <= maxpoolIn[47:0];
-			index <= index + 48;
+		else begin
+			if(canOutput)begin
+				maxpoolOut <= buffer[63:0];
+				index <= index - 64;
+				buffer <= buffer >> 64;
+				DRAMwriteEn <= 1;
+				if(DRAMwriteEn)
+					maxpoolOutAddr <= maxpoolOutAddr+1;
+			end
+			if(enCounter == 6)begin    // Read 64 bit data
+				buffer[index +: 64] <= maxpoolIn;
+				index <= index + 64;
+			end 
+			if(enCounter == 8)begin    // Read 48 bit data
+				buffer[index +: 48] <= maxpoolIn[47:0];
+				index <= index + 48;
+			end
 		end
 	end
 end

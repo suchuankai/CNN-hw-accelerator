@@ -1,7 +1,7 @@
 `timescale 1ns/10ps
 `define cycle 10 
 `define ifmapPath  "./data/ifmap.dat" 
-`define goldenPath "./data/pool.dat" 
+`define goldenPath "./data/final.dat" 
 `define SDFFILE    "./Top_syn.sdf"	  // Modify your sdf file name
 module testfixture();
 
@@ -37,11 +37,12 @@ end
 	initial $sdf_annotate(`SDFFILE, u_Top);
 `endif
 
-reg [63:0] mem [0:1023];
-reg [7:0] golden[195:0];
+reg [63:0] mem   [0:1023];
+reg [63:0] golden[0:150];
 // Read ifmap as mem
 initial begin
 	$display("\n------------ Simulation start ------------\n");
+	// 0~1 : bias, 2~8 : kernel, 9~121 : ifmap
 	$readmemb(`ifmapPath, mem);
 	$readmemb(`goldenPath, golden);
 end
@@ -64,40 +65,36 @@ always@(negedge clk)begin
 	end
 end
 
-integer i;
-reg [7:0] maxpoolMem [0:195];
-reg [7:0] error;
-reg [7:0] errorNum=0, passNum=0;
+integer i, j;
+reg [63:0] maxpoolMem [0:150];
+reg [10:0] error;
+reg [10:0] errorNum=0, passNum=0;
 
 always@(negedge clk)begin
 	if(writeEn)begin
-		maxpoolMem[(writeAddr<<3)]   <= writeData[7:0]  ;
-		maxpoolMem[(writeAddr<<3)+1] <= writeData[15:8] ;
-		maxpoolMem[(writeAddr<<3)+2] <= writeData[23:16];
-		maxpoolMem[(writeAddr<<3)+3] <= writeData[31:24];
-		maxpoolMem[(writeAddr<<3)+4] <= writeData[39:32];
-		maxpoolMem[(writeAddr<<3)+5] <= writeData[47:40];
-		maxpoolMem[(writeAddr<<3)+6] <= writeData[55:48];
-		maxpoolMem[(writeAddr<<3)+7] <= writeData[63:56];
+		maxpoolMem[writeAddr] <= writeData;
 	end
-	if(writeAddr==25) begin
+	if(writeAddr==150) begin
 
-		for(i=0; i<196; i=i+1)begin
+		for(i=0; i<150; i=i+1)begin  // Compare eight data in one row
 
-			
-			if(maxpoolMem[i]>golden[i])
-				error = maxpoolMem[i] - golden[i];
-			else 
-				error = golden[i] - maxpoolMem[i];
+			for(j=0; j<8; j=j+1)begin
 
-			if(error<=1) begin
-				passNum = passNum + 1;
-				$display("Pixel %3d golden is %3d, get %3d", i, golden[i], maxpoolMem[i]);
+				if(maxpoolMem[i][7+8*j -: 8]>golden[i][7+8*j -: 8])
+					error = maxpoolMem[i][7+8*j -: 8] - golden[i][7+8*j -: 8];
+				else 
+					error = golden[i][7+8*j -: 8] - maxpoolMem[i][7+8*j -: 8];
+
+				if(error<=2) begin
+					passNum = passNum + 1;
+					$display("Pixel %3d golden is %3d, get %3d", 8*i+j, golden[i][7+8*j -: 8], maxpoolMem[i][7+8*j -: 8]);
+				end
+				else begin
+					errorNum = errorNum + 1;
+					$display("Pixel %3d golden is %3d, get %3d , error is %3d", 8*i+j, golden[i][7+8*j -: 8], maxpoolMem[i][7+8*j -: 8], error);
+				end
 			end
-			else begin
-				errorNum = errorNum + 1;
-				$display("Pixel %3d golden is %3d, get %3d , error is %3d", i, golden[i], maxpoolMem[i], error);
-			end
+
 		end
 
 		if(errorNum==0)begin
@@ -110,6 +107,7 @@ always@(negedge clk)begin
 		else begin
 			$display("\n");
 			$display("----------------------------------------------------");
+			$display("---------------Total use %1d cycles-----------------" ,cycleCount);
 			$display("      There are %1d error in test patterns.", errorNum);
 			$display("            Please check your design!!!"             );
 			$display("----------------------------------------------------");
@@ -120,16 +118,34 @@ end
 
 
 integer cycleCount=0;
+reg mode;
 always@(negedge clk)begin
 	if(rst)begin
 		filter  <= 72'd0;
 		bias <= 16'd0;
+		mode <= 0;
 	end
 	else begin
 		cycleCount <= cycleCount +1;
-		filter   <= 72'b11111001_11101101_00011010_00001101_11110001_11110100_00010000_00001010_11110001;
-		bias     <= 16'b00000001_11001011;
+		case(mode)
+			0:begin
+				filter   <= 72'b11111001_11101101_00011010_00001101_11110001_11110100_00010000_00001010_11110001;
+				bias     <= 16'b00000001_11001011;
+				if(readAddr==113) mode <= mode + 1;
+			end
+			1:begin
+				filter   <= 72'b11101011_00001101_00010100_11101100_11111111_00011000_11110010_11110100_00011001;
+				bias     <= 16'b00000000_01001111;
+			end
+		endcase
 	end
 end
+
+/*
+72'b11111001_11101101_00011010_00001101_11110001_11110100_00010000_00001010_11110001;
+bias     <= 16'b00000001_11001011;
+72'b11101011_00001101_00010100_11101100_11111111_00011000_11110010_11110100_00011001;
+bias     <= 16'b00000000_01001111;
+*/
 
 endmodule

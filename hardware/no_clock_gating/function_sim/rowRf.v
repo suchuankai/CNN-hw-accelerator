@@ -1,9 +1,9 @@
-module rowRf(clk, rst, writeEn, writeAddr, writeData, rowOut, fullRow);
+module rowRf(clk, rst, writeEn, writeAddr, writeData, fullRow, threeRowready, rowOut);
 
 input clk, rst, writeEn, fullRow;
 input [63:0] writeData;     // Data write to rowRf from FIFO
 input [1:0]  writeAddr;     // Write to rowRf address
-
+input threeRowready;
 output reg [63:0] rowOut;
 
 reg [63:0] buffer [3:0];    // Keep four 64 bit data which means one row data
@@ -38,7 +38,11 @@ always@(posedge clk or posedge rst)begin
 				else readAddr <= readAddr + 1;
 			end
 			1:begin
-				if(fullRow) state <= 0;
+				if(fullRow) begin
+					rowOut <= buffer[readAddr];
+					readAddr <= readAddr + 1;
+					state <= 0;
+				end
 			end
 		endcase 
 

@@ -1,6 +1,6 @@
-module FIFO(clk, rst, ifmapIn, canRead, canWrite, ifmapOut, rowWriteAddress, ReadCount);
+module FIFO(clk, rst, ifmapIn, clear, FIFO_En, needRead, canRead, canWrite, ifmapOut, rowWriteAddress, ReadCount, totalRead);
 
-input clk, rst;
+input clk, rst, clear, needRead, FIFO_En;
 input [63:0] ifmapIn;                // ifmap from DRAM
 
 output canRead, canWrite;            // FIFO read / write signal
@@ -8,6 +8,7 @@ output canRead, canWrite;            // FIFO read / write signal
 output reg [63:0] ifmapOut;          // Complete sliced 64-bit data output to rowRf
 output reg [1:0]  rowWriteAddress;   // write Address to row ifmap 
 output reg [4:0]  ReadCount;         // Use to check new row is full or not
+output reg [10:0] totalRead;
 
 reg [7:0] index;
 assign canWrite = (index<=64) ;      // Read tb data enable
@@ -32,24 +33,36 @@ end
 always@(posedge clk or posedge rst)begin
 	if(rst)begin
 		index <= 8'd0;
+		totalRead <= 11'd0;
 		buffer <= 128'd0;
 		ReadCount <= 5'd0;
 		ifmapOut <= 64'd0;
 		rowWriteAddress <= 2'd3;
 	end
 	else begin
-		if(canWrite) begin             // Read ifmap from tb (DRAM)  
-			buffer[index +: 64] <= ifmapIn;
-			index <= index + 64;
-		end
-		else if(canRead) begin         // Rrite to RF row
-			ifmapOut <= buffer[63:0];
-			buffer <= buffer >> shift;
-			index <= index - shift;
-
-			rowWriteAddress <= rowWriteAddress +1;
-			ReadCount <= (ReadCount==16)? 5'd1 : ReadCount + 1;
-		end
+			if(canWrite && FIFO_En) begin             // Read ifmap from tb (DRAM)  
+				buffer[index +: 64] <= ifmapIn;
+				index <= index + 64;
+			end
+			else if(canRead && needRead) begin         // Rrite to RF row
+				ifmapOut <= buffer[63:0];
+				
+				if(totalRead==121)begin
+					index <= 0;
+					totalRead <= 0;
+					ReadCount <= 5'd0;
+					buffer <= 128'd0;
+					rowWriteAddress <= 2'd3;
+				end
+				else begin
+					totalRead <= totalRead + 1;
+					index <= index - shift;
+					ReadCount <= (ReadCount==16)? 5'd1 : ReadCount + 1;
+					buffer <= buffer >> shift;
+					rowWriteAddress <= rowWriteAddress +1;
+				end
+			end
+		
 	end
 end
 
