@@ -29,8 +29,9 @@ In hardware design, we also consider the differences in scaling factors between 
   > ![Equation](https://latex.codecogs.com/svg.image?&space;\text{shift&space;bit}&space;=&space;\frac{{\text{outputscale}}}{{\text{inputscale}&space;\cdot&space;\text{weightscale}}}&space;=&space;\frac{{0.0087}}{{0.00392&space;\cdot&space;0.01744}}&space;\approx&space;127.28&space;\approx&space;\text{right&space;shift&space;7&space;bit}&space;)  
 - In this project, we have only completed the computation of one kernel. For detailed information, please refer to `./software`.
 ## Hardware design overview
-<img src="https://github.com/suchuankai/CNN-accelerator/assets/69788052/51b1f17f-5ad2-4f5c-94c1-2fdd4bb84c82" width="800" height="350" alt="Top design"/>  
-    
+<img src="https://github.com/suchuankai/CNN-hw-accelerator/assets/69788052/f805e6d2-309d-49fa-b137-0aadff0782b2" width="800" height="350" alt="Top design"/>  
+
+
 We implemented this simple CNN accelerator based on Eeyriss. Basically, there are four important parts in our design.  
 ### FIFO
 ![mem (2) drawio](https://github.com/suchuankai/CNN-accelerator/assets/69788052/f5097358-ebe4-448c-9f06-379a00af8a4e)  
