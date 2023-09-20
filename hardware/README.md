@@ -7,8 +7,8 @@ We have implemented two versions, one with clock-gating and one without.
 ## Result
 |                  | Total cell area | data arrival time |  Total power |
 |  ----            | ----            | -----             | ----         |
-| no clock-gating  | 787756  (µm^2)  | 9.23 (ns)         | 21.43 mw     |
-| clock-gating     | 804187  (µm^2)  | 9.32 (ns)         | 20.55 mw     |
+| no clock-gating  | 787756  (µm^2)  | 9.26 (ns)         | 21.43 mw     |
+| clock-gating     | 804187  (µm^2)  | 9.21 (ns)         | 20.55 mw     |
 
 ## Instruction
 Function simulation
