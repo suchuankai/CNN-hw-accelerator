@@ -10,3 +10,7 @@
 `include "rowRf.v"
 `include "rowSelect.v"
 `include "FIFO_out.v"
+`include "FIFO_w.v"
+`include "demux1_3.v"
+`include "biasBuf.v"
+`include "weightBuf.v"

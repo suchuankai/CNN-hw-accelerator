@@ -2,7 +2,7 @@ module PE(clk, rst, ifmap, filter, psumIn, psumOut);
 
 input clk, rst;
 input [7:0] ifmap, filter;
-input [19:0] psumIn;
+input signed [19:0] psumIn;
 output [19:0] psumOut;
 
 reg [7:0] ifmapBuf;

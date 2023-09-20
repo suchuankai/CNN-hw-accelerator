@@ -1,6 +1,6 @@
-module convBuf(clk, rst, valid, conv, pool, count);
+module convBuf(clk, rst, valid, clear, conv, pool, count);
 input clk, rst;
-input valid;
+input valid, clear;
 input [31:0] conv;
 output reg [63:0] pool;
 output reg [3:0] count;
@@ -20,15 +20,22 @@ always @ (posedge clk or posedge rst) begin
         conv_buffer <= 128'd0;
     end
     else begin
-        if(valid) begin
-            count <= count + 1;
-            conv_buffer <= {conv, conv_buffer[127:32]};
-            if(count >= 4) begin
-                pool <= {max[3], max[2], max[1], max[0], pool[63:32]};
-            end
+        if(clear)begin
+            count <= 4'd0;
+            pool <= 64'd0;
+            conv_buffer <= 128'd0;
         end
-        else if(count==8)
-            count <= 0;  
+        else begin
+            if(valid) begin
+                count <= count + 1;
+                conv_buffer <= {conv, conv_buffer[127:32]};
+                if(count >= 4) begin
+                    pool <= {max[3], max[2], max[1], max[0], pool[63:32]};
+                end
+            end
+            else if(count==8)
+                count <= 0;  
+        end
     end
 end
 

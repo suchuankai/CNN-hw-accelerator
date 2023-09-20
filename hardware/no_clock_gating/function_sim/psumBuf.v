@@ -1,12 +1,13 @@
-module psumBuf(clk, rst, enable, first, last, psumIn, headAddress, convValid, convResult);
+module psumBuf(clk, rst, pusmclear, mode, enable, first, last, psumIn, headAddress, convValid, convResult);
 
-input clk, rst, enable, first, last;
+input clk, rst, enable, first, last, pusmclear;
+input [2:0] mode;
 input [175:0] psumIn;
 input [5:0] headAddress;
 output convValid;
 output [31:0] convResult;
 
-reg [23:0] psum [0:31];
+reg [23:0] psum [0:29];
 reg [5:0] addr;
 reg [3:0] count;
 
@@ -32,19 +33,27 @@ assign convResult = {max[3][7:0], max[2][7:0], max[1][7:0], max[0][7:0]};
 integer i;
 always@(posedge clk)begin
 	if(rst)begin
-		for(i=0; i<32; i=i+1)begin
+		for(i=0; i<144; i=i+1)begin
 			psum[i] <= 24'd0;
 		end
 		addr <= 5'd0;
 		count <= 4'd0;
 	end
 	else begin
+		if(pusmclear)begin
+			for(i=0; i<144; i=i+1)begin
+				psum[i] <= 24'd0;
+			end
+		end
 		if(enable)begin
+			
 			if(first)begin
 				addr <= 0;
 				count <= 0;
-				for(i=16; i<32; i=i+1)begin
-					psum[i] <= 24'd0;
+				if(mode==0)begin
+					for(i=16; i<32; i=i+1)begin
+						psum[i] <= 24'd0;
+					end
 				end
 				psum[headAddress]   <= psum[headAddress]   + {{2{psumIn[65]}} , psumIn[65:44]  };
 				psum[headAddress+1] <= psum[headAddress+1] + {{2{psumIn[87]}} , psumIn[87:66]  };
@@ -75,13 +84,14 @@ always@(posedge clk)begin
 				psum[headAddress+6] <= psum[headAddress+6] + {{2{psumIn[153]}}, psumIn[153:132]};
 				psum[headAddress+7] <= psum[headAddress+7] + {{2{psumIn[175]}}, psumIn[175:154]};
 			end
-			
 		end
 		else begin
 			if(convValid)
 				count <= count + 1;			
-			for(i=0; i<16; i=i+1)begin
-				psum[i] <= 24'd0;
+			if(mode==0)begin
+				for(i=0; i<16; i=i+1)begin
+					psum[i] <= 24'd0;
+				end
 			end
 			addr <= addr + 8;
 		end

@@ -163,14 +163,14 @@ PE PE62( .clk(clk), .rst(rst), .en(en[22]), .ifmap(ifmapIn3[47:40]), .filter(fil
 PE PE63( .clk(clk), .rst(rst), .en(en[23]), .ifmap(ifmapIn3[55:48]), .filter(filter[63:56]), .psumIn(pout72), .psumOut(pout63) );
 PE PE64( .clk(clk), .rst(rst), .en(en[24]), .ifmap(ifmapIn3[63:56]), .filter(filter[63:56]), .psumIn(20'd0), .psumOut(pout64) );
 
-PE PE65( .clk(clk), .rst(rst), .en(en[17]), .ifmap(ifmapIn3[7:0]  ), .filter(filter[71:64]), .psumIn({4'd0, bias}), .psumOut(pout65) );
-PE PE66( .clk(clk), .rst(rst), .en(en[18]), .ifmap(ifmapIn3[15:8] ), .filter(filter[71:64]), .psumIn({4'd0, bias}), .psumOut(pout66) );
-PE PE67( .clk(clk), .rst(rst), .en(en[19]), .ifmap(ifmapIn3[23:16]), .filter(filter[71:64]), .psumIn({4'd0, bias}), .psumOut(pout67) );
-PE PE68( .clk(clk), .rst(rst), .en(en[20]), .ifmap(ifmapIn3[31:24]), .filter(filter[71:64]), .psumIn({4'd0, bias}), .psumOut(pout68) );
-PE PE69( .clk(clk), .rst(rst), .en(en[21]), .ifmap(ifmapIn3[39:32]), .filter(filter[71:64]), .psumIn({4'd0, bias}), .psumOut(pout69) );
-PE PE70( .clk(clk), .rst(rst), .en(en[22]), .ifmap(ifmapIn3[47:40]), .filter(filter[71:64]), .psumIn({4'd0, bias}), .psumOut(pout70) );
-PE PE71( .clk(clk), .rst(rst), .en(en[23]), .ifmap(ifmapIn3[55:48]), .filter(filter[71:64]), .psumIn({4'd0, bias}), .psumOut(pout71) );
-PE PE72( .clk(clk), .rst(rst), .en(en[24]), .ifmap(ifmapIn3[63:56]), .filter(filter[71:64]), .psumIn({4'd0, bias}), .psumOut(pout72) );
+PE PE65( .clk(clk), .rst(rst), .en(en[17]), .ifmap(ifmapIn3[7:0]  ), .filter(filter[71:64]), .psumIn({{4{bias[15]}}, bias}), .psumOut(pout65) );
+PE PE66( .clk(clk), .rst(rst), .en(en[18]), .ifmap(ifmapIn3[15:8] ), .filter(filter[71:64]), .psumIn({{4{bias[15]}}, bias}), .psumOut(pout66) );
+PE PE67( .clk(clk), .rst(rst), .en(en[19]), .ifmap(ifmapIn3[23:16]), .filter(filter[71:64]), .psumIn({{4{bias[15]}}, bias}), .psumOut(pout67) );
+PE PE68( .clk(clk), .rst(rst), .en(en[20]), .ifmap(ifmapIn3[31:24]), .filter(filter[71:64]), .psumIn({{4{bias[15]}}, bias}), .psumOut(pout68) );
+PE PE69( .clk(clk), .rst(rst), .en(en[21]), .ifmap(ifmapIn3[39:32]), .filter(filter[71:64]), .psumIn({{4{bias[15]}}, bias}), .psumOut(pout69) );
+PE PE70( .clk(clk), .rst(rst), .en(en[22]), .ifmap(ifmapIn3[47:40]), .filter(filter[71:64]), .psumIn({{4{bias[15]}}, bias}), .psumOut(pout70) );
+PE PE71( .clk(clk), .rst(rst), .en(en[23]), .ifmap(ifmapIn3[55:48]), .filter(filter[71:64]), .psumIn({{4{bias[15]}}, bias}), .psumOut(pout71) );
+PE PE72( .clk(clk), .rst(rst), .en(en[24]), .ifmap(ifmapIn3[63:56]), .filter(filter[71:64]), .psumIn({{4{bias[15]}}, bias}), .psumOut(pout72) );
 
 
 Adder2 Adder2_1 (.clk(clk), .rst(rst), .Rf1_sum(RF1out[1]), .Rf2_sum(RF2out[1]), .Rf3_sum(RF3out[1]), .psum(toPsumBuf[9][19:0]),  .toPsumBuf(toPsumBuf[1]));

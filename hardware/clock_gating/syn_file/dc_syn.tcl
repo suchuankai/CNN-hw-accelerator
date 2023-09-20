@@ -10,7 +10,7 @@ set high_fanout_net_threshold 0
 uniquify
 
 #Synthesis all design
-replace_clock_gates 
+replace_clock_gates
 compile -map_effort high -area_effort high
 #compile -map_effort high -area_effort high -inc
 #compile_ultra
