@@ -21,5 +21,6 @@ ncverilog tb.v Top_syn.v tsmc13_neg.v +define+SDF +access+r
 ```
 
 ## PE design
-![image](https://github.com/suchuankai/CNN-accelerator/assets/69788052/3e70f773-2572-415d-958e-0f11e18f5b98)
+![image](https://github.com/suchuankai/CNN-hw-accelerator/assets/69788052/3643e383-560e-4ddf-80d8-34f08b185838)
+
 
