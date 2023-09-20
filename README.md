@@ -27,7 +27,7 @@ In hardware design, we also consider the differences in scaling factors between 
   | Zeropoint(IA)            |    0                 |0        |0        |0        |0        |0        |0        |175     |  
   > ![Equation](https://latex.codecogs.com/svg.image?\text{Bias}&space;=&space;\frac{{\text{{bias}}}}{{\text{{input&space;scale}}&space;\cdot&space;\text{{weight&space;scale}}}}&space;=&space;\frac{{0.031352922}}{{0.00392&space;\cdot&space;0.01744}}&space;\approx&space;459&space;&space;)    
   > ![Equation](https://latex.codecogs.com/svg.image?&space;\text{shift&space;bit}&space;=&space;\frac{{\text{outputscale}}}{{\text{inputscale}&space;\cdot&space;\text{weightscale}}}&space;=&space;\frac{{0.0087}}{{0.00392&space;\cdot&space;0.01744}}&space;\approx&space;127.28&space;\approx&space;\text{right&space;shift&space;7&space;bit}&space;)  
-- In this project, we have only completed the computation of one kernel. For detailed information, please refer to `./software`.
+- In this project, we have only completed the computation of one layer(six kernel). For detailed information, please refer to `./software`.
 ## Hardware design overview
 <img src="https://github.com/suchuankai/CNN-hw-accelerator/assets/69788052/f805e6d2-309d-49fa-b137-0aadff0782b2" width="800" height="350" alt="Top design"/>  
 
@@ -58,8 +58,8 @@ Conv buffer receives 4 sets of 8-bit values from the psum buffer each time. In t
 
 
 ## Result
-- We have completed the convolution, ReLU, and max-pooling operations on a 30x30 feature map with a 3x3 filter in 264 cycles. The maximum error does not exceed 1.
-- After synthesis, the circuit can operate at a frequency of 100 MHz, achieving a peak throughput of 3.6 GMAC/s.
+- We have completed the convolution, ReLU, and max-pooling operations on a 30x30 feature map with a 3x3 filter in 1567 cycles. The maximum error does not exceed 2.
+- After synthesis, the circuit can operate at a frequency of 100 MHz, achieving a peak throughput of 7.2 GMAC/s.
 - Additionally, we have analyzed the changes in power consumption after use clock gating. For more detailed information, please refer to  `./hardware`.
 
 ## Reference
